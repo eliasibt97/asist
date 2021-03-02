@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResponsableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function() {
     return view('welcome');
 });
+Route::get('responsables',[ResponsableController::class,'index']);
+Route::get('responsable/{id}', [ResponsableController::class, 'show']);

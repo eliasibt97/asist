@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResponsablesTable extends Migration
+class CreateIncomesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateResponsablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('responsables', function (Blueprint $table) {
+        Schema::create('incomes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',80);
-            $table->string('celular',20);
-            $table->string('email',30)->nullable();
-
+            $table->foreignId('member_id')->constrained('members');
+            $table->dateTime('income_date');
+            $table->string('origin_church');
+            $table->string('minister');
+            $table->string('notes');
             $table->timestamps();
-            $table->softDeletes();
-
         });
     }
 
@@ -32,6 +31,6 @@ class CreateResponsablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responsables');
+        Schema::dropIfExists('incomes');
     }
 }

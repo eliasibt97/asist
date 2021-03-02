@@ -1,5 +1,5 @@
 @extends('layout')
 
 @section('main')
-    <h1> main </h1>
+    <h1>Members</h1>
 @endsection
