@@ -6,19 +6,19 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Validation\Validator;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Validator;
 
 class JwtController extends Controller
 {
     public function login(Request $request) {
 
         $credentials = $request->all();
-        $validator = Validator::make($credentials, [
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required'
-        ]);
+        ])->validate();
 
         if($validator->fails()) {
             return response()->json([

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ResponsableController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,17 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::group([
 
-// Route::apiResource('/miembros','App\Http\Controllers\MiembroController');
-// Route::apiResource('/miembro/{id}','App\Http\Controllers\MiembroController');
+    'middleware' => 'api',
+    'prefix' => 'auth'
 
-Route::post('v1/auth/login', 'App\Http\Controllers\Auth\JwtController@login');
+], function ($router) {
 
-Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'v1', 'namespace' => 'App\Controllers'], function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
 
-    Route::post('auth/refresh', 'Auth\JwtController@refreshToken');
-    Route::post('auth/logout', 'Auth\JwtController@logout');
 });
+
+Route::get('/responsables',[ResponsableController::class, 'index']);
+Route::post('/responsables/add',[ResponsableController::class, 'store']);
+Route::get('/responsables/{id}',[ResponsableController::class, 'show']);
+Route::put('/responsable/edit/{id}',[ResponsableController::class, 'update']);
+
+Route::get('/members',[MemberController::class, 'index']);
+Route::get('/member/{id}',[MemberController::class, 'show']);
+Route::post('/members/add',[MemberController::class, 'store']);
+Route::put('/member/edit/{id}',[MemberController::class, 'update']);
+
