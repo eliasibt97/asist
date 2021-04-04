@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Responsable extends Model
-{
+class Group extends Model {
+
     use HasFactory;
     use SoftDeletes;
     public $timestamps = true;
-    protected $fillable = [
-        'name',
-        'cellphone',
-        'email',
-    ];
 
-    public function members(){
+    protected $table = "groups";
+    protected $fillable = ['title','description'];
+
+    public function members() {
         return $this->hasMany(Member::class);
     }
+
 }
