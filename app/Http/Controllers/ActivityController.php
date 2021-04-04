@@ -56,9 +56,14 @@ class ActivityController extends Controller
     }
 
     public function update(Request $request, int $id) {
-        $member = Member::find($id);
+        $activity = Activity::find($id);
         
-        $member->name = $request->name;
-        $member->surnames = $request->surnames;
+        $activity->title = $request->title;
+        $activity->description = $request->description;
+        if($activity->save()) {
+            return response()->json(['success' => true, 'message' => 'OK'],200);
+        } else {
+            throw response()->json(['success' => false, 'message' => 'Error'],500);
+        }
     }
 }
