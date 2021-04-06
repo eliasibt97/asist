@@ -58,7 +58,7 @@ class ResponsableController extends Controller
             $response = ['success' => true, 'status' => 'OK'];
         } else {
             $response = ['success' => false, 'status' => 'Error'];
-            $status = 500;
+            $status_code = 500;
         }
         return response()->json($response, $status_code);
     }

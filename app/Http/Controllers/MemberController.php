@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Activity;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -64,17 +63,6 @@ class MemberController extends Controller
         $member = Member::find($id);
         $member->activities;
         return response()->json($member);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Member $member)
-    {
-        //
     }
 
     /**
